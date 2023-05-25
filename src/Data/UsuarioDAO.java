@@ -5,81 +5,55 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Data.ConexaoBD;
 
 /**
  * @author Marcelo Oliveira
  */
-public class UsuarioDAO {
+public class UsuarioDAO implements GenericoDAO<Usuario> {
 
-	Connection conn;
-	PreparedStatement st;
-	ResultSet rs;
+	private ConexaoBD conexao;
 
-	/**
-	 * Conecta-se ao banco de dados.
-	 *
-	 * @return true se a conexão for bem sucedida, false caso contrário.
-	 */
-	public boolean conectar() {
-		try {
-
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vendapro",
-					  "root", "F17101818@");
-
-			return true;
-
-		} catch (ClassNotFoundException | SQLException ex) {
-
-			System.out.println("Erro ao conectar: " + ex.getMessage());
-			return false;
-
-		}
-
+	public UsuarioDAO(ConexaoBD conexao) {
+		
+		this.conexao = conexao;
 	}
 
-	/**
-	 * Desconecta-se do banco de dados.
-	 */
-	public void desconectar() {
-		try {
-
-			conn.close();
-
-		} catch (SQLException e) {
-
-		}
-
-	}
-
-	/**
-	 * Método para Inserção de usuários no banco de dados.
-	 *
-	 * @param usuario, recebe o objeto com os dados.
-	 * @return status da operação de salvamente no BD
-	 */
-	public int inputUser(Usuario usuario) {
-
+	@Override
+	public int insert(Usuario usuario) {
 		int status;
-
 		try {
-			st = conn.prepareStatement("INSERT INTO usuario  (nomeUsuario, loginUsuario, senhaUsuario, senhaUsuarioCript)"
-					  + " VALUES(?,?,?,?)");
-			st.setString(1, usuario.getLoginUsuario());
-			st.setString(2, usuario.getNomeUsuario());
+			conexao.conectar();
+			Connection conn = conexao.getConexao();
+			PreparedStatement st = conn.prepareStatement("INSERT INTO usuario"
+					  + " (nomeUsuario, loginUsuario, senhaUsuario, senhaUsuarioCript) VALUES (?,?,?,?)");
+			st.setString(1, usuario.getNomeUsuario());
+			st.setString(2, usuario.getLoginUsuario());
 			st.setString(3, usuario.getSenhaUsuario());
 			st.setString(4, usuario.getSenhaUsuarioCript());
-
 			status = st.executeUpdate();
+			st.close();
+			conexao.desconectar();
 			return status;
-
 		} catch (SQLException e) {
-
 			System.out.println("Erro ao conectar: " + e.getMessage());
 			return e.getErrorCode();
-
 		}
+	}
 
+	@Override
+	public int update(Usuario obj) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public boolean delete(int id) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public Usuario select(int id) {
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 }

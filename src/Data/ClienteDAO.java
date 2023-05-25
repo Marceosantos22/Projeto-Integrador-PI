@@ -9,47 +9,32 @@ import java.sql.SQLException;
 /**
  * @author Marcelo Oliveira
  */
-public class ClienteDAO {
-	
-	Connection conn;
-	PreparedStatement st;
-	ResultSet rs;
+public class ClienteDAO implements GenericoDAO<Cliente> {
 
-	
-	/**Conecta-se ao banco de dados.
-	 * @return true se a conexão for bem sucedida, false caso contrário.
-	 */
-	public boolean conectar() {
-		try {
+	private ConexaoBD conexao;
 
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vendapro",
-					  "root", "");
-
-			return true;
-
-		} catch (ClassNotFoundException | SQLException ex) {
-
-			System.out.println("Erro ao conectar: " + ex.getMessage());
-			return false;
-
-		}
-
+	public ClienteDAO(ConexaoBD conexao) {
+		this.conexao = conexao;
 	}
 
-	/**
-	 * Desconecta-se do banco de dados.
-	 */
-	public void desconectar() {
-		try {
-
-			conn.close();
-
-		} catch (SQLException e) {
-
-		}
-
+	@Override
+	public int insert(Cliente obj) {
+		throw new UnsupportedOperationException("Not supported yet.");
 	}
-	
-	
+
+	@Override
+	public int update(Cliente obj) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public boolean delete(int id) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public Cliente select(int id) {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
 }

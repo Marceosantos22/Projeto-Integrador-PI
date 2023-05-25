@@ -9,22 +9,22 @@ import java.sql.SQLException;
 /**
  * @author Marcelo Oliveira
  */
-public class VendedorDAO implements GenericoDAO<Vendedor> {
+public class VendaDAO implements GenericoDAO<Venda> {
 
 	private ConexaoBD conexao;
 
-	public VendedorDAO(ConexaoBD conexao) {
+	public VendaDAO(ConexaoBD conexao) {
 
 		this.conexao = conexao;
 	}
 
 	@Override
-	public int insert(Vendedor obj) {
+	public int insert(Venda obj) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public int update(Vendedor obj) {
+	public int update(Venda obj) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -34,7 +34,7 @@ public class VendedorDAO implements GenericoDAO<Vendedor> {
 	}
 
 	@Override
-	public Vendedor select(int id) {
+	public Venda select(int id) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 

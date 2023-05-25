@@ -8,24 +8,24 @@ import java.util.Date;
 public class Cliente extends Pessoa {
 
 	private int idCliente;
-	private String rg;
-	private String cpf;
-	private String estado;
-	private Date dataNasc;
-	private String obs;
+	private String rgcliente;
+	private String cpfCliente;
+	private String estadoCliente;
+	private Date dataNascCliente;
+	private String obscliente;
 
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(int idCliente, String rg, String cpf, String estado, Date dataNasc, String obs, String nome, String email, String endereco, String telefone) {
+	public Cliente(int idCliente, String rgcliente, String cpfCliente, String estadoCliente, Date dataNascCliente, String obscliente, String			nome, String email, String endereco, String telefone) {
 		super(nome, email, endereco, telefone);
 		this.idCliente = idCliente;
-		this.rg = rg;
-		this.cpf = cpf;
-		this.estado = estado;
-		this.dataNasc = dataNasc;
-		this.obs = obs;
+		this.rgcliente = rgcliente;
+		this.cpfCliente = cpfCliente;
+		this.estadoCliente = estadoCliente;
+		this.dataNascCliente = dataNascCliente;
+		this.obscliente = obscliente;
 	}
 
 	public int getIdCliente() {
@@ -36,46 +36,50 @@ public class Cliente extends Pessoa {
 		this.idCliente = idCliente;
 	}
 
-	public String getRgIE() {
-		return rg;
+	public String getRgcliente() {
+		return rgcliente;
 	}
 
-	public void setRgIE(String rgIE) {
-		this.rg = rgIE;
+	public void setRgcliente(String rgcliente) {
+		this.rgcliente = rgcliente;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public String getCpfCliente() {
+		return cpfCliente;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setCpfCliente(String cpfCliente) {
+		this.cpfCliente = cpfCliente;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getEstadoCliente() {
+		return estadoCliente;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setEstadoCliente(String estadoCliente) {
+		this.estadoCliente = estadoCliente;
 	}
 
-	public Date getDataNasc() {
-		return dataNasc;
+	public Date getDataNascCliente() {
+		return dataNascCliente;
 	}
 
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
+	public void setDataNascCliente(Date dataNascCliente) {
+		this.dataNascCliente = dataNascCliente;
 	}
 
-	public String getObs() {
-		return obs;
+	public String getObscliente() {
+		return obscliente;
 	}
 
-	public void setObs(String obs) {
-		this.obs = obs;
+	public void setObscliente(String obscliente) {
+		this.obscliente = obscliente;
 	}
+	
+	
 
+
+	
 	
 	
 }

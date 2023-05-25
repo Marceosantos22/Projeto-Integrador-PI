@@ -7,7 +7,7 @@ public class Categoria {
 
 	private int idCategoria;
 	private String nomeCategoria;
-	private String descricao;
+	private String descricaoCategoria;
 
 	public Categoria() {
 
@@ -16,7 +16,7 @@ public class Categoria {
 	public Categoria(int idCategoria, String nomeCategoria, String descricao) {
 		this.idCategoria = idCategoria;
 		this.nomeCategoria = nomeCategoria;
-		this.descricao = descricao;
+		this.descricaoCategoria = descricao;
 	}
 
 	public int getIdCategoria() {
@@ -36,11 +36,11 @@ public class Categoria {
 	}
 
 	public String getDescricao() {
-		return descricao;
+		return descricaoCategoria;
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricaoCategoria = descricao;
 	}
 
 }

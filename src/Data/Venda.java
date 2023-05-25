@@ -8,7 +8,7 @@ import java.util.Date;
 public class Venda {
 
 	private int idVenda;
-	private Date datavenda;
+	private Date dataVenda;
 	Cliente cliente;
 	private String telefone;
 	Produto produto;
@@ -25,7 +25,7 @@ public class Venda {
 	public Venda(int idVenda, Date datavenda, Cliente cliente, String telefone, Produto produto,
 			  Categoria categoria, Double valor, Double desconto, Vendedor vendedor, String status) {
 		this.idVenda = idVenda;
-		this.datavenda = datavenda;
+		this.dataVenda = datavenda;
 		this.cliente = cliente;
 		this.telefone = telefone;
 		this.produto = produto;
@@ -45,11 +45,11 @@ public class Venda {
 	}
 
 	public Date getDatavenda() {
-		return datavenda;
+		return dataVenda;
 	}
 
 	public void setDatavenda(Date datavenda) {
-		this.datavenda = datavenda;
+		this.dataVenda = datavenda;
 	}
 
 	public Cliente getCliente() {

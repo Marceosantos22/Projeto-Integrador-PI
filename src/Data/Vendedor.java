@@ -8,23 +8,23 @@ import java.util.Date;
 public class Vendedor extends Pessoa {
 
 	private int IdVendedor;
-	private String rg;
-	private String cpf;
-	private Date dataNasc;
-	private Double comissao;
+	private String rgVendedor;
+	private String cpfVendedor;
+	private Date dataNascVendedor;
+	private Double comissaoVendedor;
 
 	public Vendedor() {
 
 	}
 
-	public Vendedor(int IdVendedor, String rg, String cpf, Date dataNasc, Double comissao, String nome,
+	public Vendedor(int IdVendedor, String rgVendedor, String cpfVendedor, Date dataNascVendedor, Double comissaoVendedor, String nome,
 			  String email, String endereco, String telefone) {
 		super(nome, email, endereco, telefone);
 		this.IdVendedor = IdVendedor;
-		this.rg = rg;
-		this.cpf = cpf;
-		this.dataNasc = dataNasc;
-		this.comissao = comissao;
+		this.rgVendedor = rgVendedor;
+		this.cpfVendedor = cpfVendedor;
+		this.dataNascVendedor = dataNascVendedor;
+		this.comissaoVendedor = comissaoVendedor;
 	}
 
 	public int getIdVendedor() {
@@ -35,36 +35,36 @@ public class Vendedor extends Pessoa {
 		this.IdVendedor = IdVendedor;
 	}
 
-	public String getRg() {
-		return rg;
+	public String getRgVendedor() {
+		return rgVendedor;
 	}
 
-	public void setRg(String rg) {
-		this.rg = rg;
+	public void setRgVendedor(String rgVendedor) {
+		this.rgVendedor = rgVendedor;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public String getCpfVendedor() {
+		return cpfVendedor;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setCpfVendedor(String cpfVendedor) {
+		this.cpfVendedor = cpfVendedor;
 	}
 
-	public Date getDataNasc() {
-		return dataNasc;
+	public Date getDataNascVendedor() {
+		return dataNascVendedor;
 	}
 
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
+	public void setDataNascVendedor(Date dataNascVendedor) {
+		this.dataNascVendedor = dataNascVendedor;
 	}
 
-	public Double getComissao() {
-		return comissao;
+	public Double getComissaoVendedor() {
+		return comissaoVendedor;
 	}
 
-	public void setComissao(Double comissao) {
-		this.comissao = comissao;
+	public void setComissaoVendedor(Double comissaoVendedor) {
+		this.comissaoVendedor = comissaoVendedor;
 	}
 
 }

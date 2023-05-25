@@ -7,8 +7,8 @@ public class Fornecedor extends Pessoa {
 
 	private int IdFornecedor;
 	private String nomefantasia;
-	private String cnpjCpf;
-	private String descricao;
+	private String cnpjCpfFornecedor;
+	private String descricaoFornecedor;
 
 	public Fornecedor() {
 
@@ -16,12 +16,12 @@ public class Fornecedor extends Pessoa {
 
 	}
 
-	public Fornecedor(int IdFornecedor, String nomefantasia, String cnpjCpf, String descricao, String nome, String email, String endereco, String telefone) {
+	public Fornecedor(int IdFornecedor, String nomefantasia, String cnpjCpfFornecedor, String descricaoFornecedor, String nome, String email							, String endereco, String telefone) {
 		super(nome, email, endereco, telefone);
 		this.IdFornecedor = IdFornecedor;
 		this.nomefantasia = nomefantasia;
-		this.cnpjCpf = cnpjCpf;
-		this.descricao = descricao;
+		this.cnpjCpfFornecedor = cnpjCpfFornecedor;
+		this.descricaoFornecedor = descricaoFornecedor;
 	}
 
 	public int getIdFornecedor() {
@@ -40,20 +40,22 @@ public class Fornecedor extends Pessoa {
 		this.nomefantasia = nomefantasia;
 	}
 
-	public String getCnpjCpf() {
-		return cnpjCpf;
+	public String getCnpjCpfFornecedor() {
+		return cnpjCpfFornecedor;
 	}
 
-	public void setCnpjCpf(String cnpjCpf) {
-		this.cnpjCpf = cnpjCpf;
+	public void setCnpjCpfFornecedor(String cnpjCpfFornecedor) {
+		this.cnpjCpfFornecedor = cnpjCpfFornecedor;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getDescricaoFornecedor() {
+		return descricaoFornecedor;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescricaoFornecedor(String descricaoFornecedor) {
+		this.descricaoFornecedor = descricaoFornecedor;
 	}
+	
 
+	
 }

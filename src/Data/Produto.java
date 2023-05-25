@@ -10,7 +10,7 @@ public class Produto {
 	private String codProduto;
 	private Double vlrcusto;
 	private Double vlrVenda;
-	private String descricao;
+	private String descricaoProduto;
 	Fornecedor fornecedor;
 	Categoria categoria;
 
@@ -25,7 +25,7 @@ public class Produto {
 		this.codProduto = codProduto;
 		this.vlrcusto = vlrcusto;
 		this.vlrVenda = vlrVenda;
-		this.descricao = descricao;
+		this.descricaoProduto = descricao;
 		this.fornecedor = fornecedor;
 		this.categoria = categoria;
 	}
@@ -71,11 +71,11 @@ public class Produto {
 	}
 
 	public String getDescricao() {
-		return descricao;
+		return descricaoProduto;
 	}
 
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+		this.descricaoProduto = descricao;
 	}
 
 	public Fornecedor getFornecedor() {
