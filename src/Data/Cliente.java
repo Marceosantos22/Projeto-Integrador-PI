@@ -18,8 +18,8 @@ public class Cliente extends Pessoa {
 		super();
 	}
 
-	public Cliente(int idCliente, String rgcliente, String cpfCliente, String estadoCliente, Date dataNascCliente, String obscliente, String			nome, String email, String endereco, String telefone) {
-		super(nome, email, endereco, telefone);
+	public Cliente(int idCliente, String rgcliente, String cpfCliente, String estadoCliente, Date dataNascCliente, String obscliente, String nome, String email, String endereco, String numero, String complemento, String bairro, String cidade, String uf, String telefone, String celular) {
+		super(nome, email, endereco, numero, complemento, bairro, cidade, uf, telefone, celular);
 		this.idCliente = idCliente;
 		this.rgcliente = rgcliente;
 		this.cpfCliente = cpfCliente;
@@ -75,7 +75,9 @@ public class Cliente extends Pessoa {
 	public void setObscliente(String obscliente) {
 		this.obscliente = obscliente;
 	}
-	
+
+
+
 	
 
 

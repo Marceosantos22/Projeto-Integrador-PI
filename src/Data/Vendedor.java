@@ -17,9 +17,8 @@ public class Vendedor extends Pessoa {
 
 	}
 
-	public Vendedor(int IdVendedor, String rgVendedor, String cpfVendedor, Date dataNascVendedor, Double comissaoVendedor, String nome,
-			  String email, String endereco, String telefone) {
-		super(nome, email, endereco, telefone);
+	public Vendedor(int IdVendedor, String rgVendedor, String cpfVendedor, Date dataNascVendedor, Double comissaoVendedor, String nome, String email, String endereco, String numero, String complemento, String bairro, String cidade, String uf, String telefone, String celular) {
+		super(nome, email, endereco, numero, complemento, bairro, cidade, uf, telefone, celular);
 		this.IdVendedor = IdVendedor;
 		this.rgVendedor = rgVendedor;
 		this.cpfVendedor = cpfVendedor;

@@ -8,18 +8,30 @@ public class Pessoa {
 	private String nome;
 	private String email;
 	private String endereco;
+	private String numero;
+	private String complemento;
+	private String bairro;
+	private String cidade;
+	private String uf;	
 	private String telefone;
+	private String celular;
+	
 
 	public Pessoa() {
 
 	}
 
-	public Pessoa(String nome, String email, String endereco, String telefone) {
-		
+	public Pessoa(String nome, String email, String endereco, String numero, String complemento, String bairro, String cidade, String uf, String telefone, String celular) {
 		this.nome = nome;
 		this.email = email;
 		this.endereco = endereco;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.uf = uf;
 		this.telefone = telefone;
+		this.celular = celular;
 	}
 
 	public String getNome() {
@@ -46,6 +58,46 @@ public class Pessoa {
 		this.endereco = endereco;
 	}
 
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
 	public String getTelefone() {
 		return telefone;
 	}
@@ -53,6 +105,17 @@ public class Pessoa {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	
+
 	
 
 }
