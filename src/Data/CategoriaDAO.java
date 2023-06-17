@@ -20,7 +20,7 @@ public class CategoriaDAO implements GenericoDAO<Categoria> {
 	}
 
 	@Override
-	public int insert(Categoria obj) {
+	public boolean insert(Categoria obj) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 

@@ -18,7 +18,7 @@ public class ClienteDAO implements GenericoDAO<Cliente> {
 	}
 
 	@Override
-	public int insert(Cliente obj) {
+	public boolean insert(Cliente obj) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 

@@ -5,7 +5,7 @@ package Data;
  */
 public interface GenericoDAO<T> {
 
-	int insert(T obj);
+	boolean insert(T obj);
 
 	int update(T obj);
 

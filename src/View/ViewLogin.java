@@ -1,7 +1,9 @@
 package View;
 
+import Data.ConexaoBD;
 import javax.swing.ImageIcon;
 import Data.Usuario;
+import Data.UsuarioDAO;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
@@ -12,6 +14,9 @@ public class ViewLogin extends javax.swing.JInternalFrame {
 
 	private Home home;
 
+	UsuarioDAO usuarioDAO;
+	ConexaoBD conexao;
+
 	/**
 	 * Creates new form ViewLogin
 	 */
@@ -20,7 +25,8 @@ public class ViewLogin extends javax.swing.JInternalFrame {
 		initComponents();
 		setTitle("Login");
 		this.home = home;
-
+		conexao = new ConexaoBD();
+		usuarioDAO = new UsuarioDAO(conexao);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -42,9 +48,11 @@ public class ViewLogin extends javax.swing.JInternalFrame {
       jblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/logo_transparente_resized.png"))); // NOI18N
 
       txtLoginNome.setBackground(new java.awt.Color(240, 240, 240));
+      txtLoginNome.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
       txtLoginNome.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
       txtLoginSenha.setBackground(new java.awt.Color(240, 240, 240));
+      txtLoginSenha.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
       txtLoginSenha.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Senha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Segoe UI", 1, 14))); // NOI18N
 
       bntEntrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -58,7 +66,7 @@ public class ViewLogin extends javax.swing.JInternalFrame {
       });
 
       jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 13)); // NOI18N
-      jLabel2.setText("Controle suas Vendas!!!");
+      jLabel2.setText("Controle e Gerencie suas Vendas!!!");
 
       javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
@@ -69,20 +77,17 @@ public class ViewLogin extends javax.swing.JInternalFrame {
             .addComponent(jblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(jPanel2Layout.createSequentialGroup()
+                  .addGap(18, 18, 18)
                   .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(bntEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                           .addComponent(txtLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                           .addComponent(txtLoginNome, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                  .addContainerGap(24, Short.MAX_VALUE))
+                     .addComponent(txtLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                     .addComponent(txtLoginNome, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(55, 55, 55))))
+                  .addGap(27, 27, 27)
+                  .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addGroup(jPanel2Layout.createSequentialGroup()
+                  .addGap(79, 79, 79)
+                  .addComponent(bntEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addContainerGap(24, Short.MAX_VALUE))
       );
       jPanel2Layout.setVerticalGroup(
          jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,11 +101,12 @@ public class ViewLogin extends javax.swing.JInternalFrame {
                   .addGap(18, 18, 18)
                   .addComponent(txtLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addGap(26, 26, 26)
-                  .addComponent(bntEntrar))
+                  .addComponent(bntEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                .addGroup(jPanel2Layout.createSequentialGroup()
                   .addContainerGap()
-                  .addComponent(jblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                  .addComponent(jblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addGap(0, 0, Short.MAX_VALUE)))
+            .addContainerGap())
       );
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -125,22 +131,7 @@ public class ViewLogin extends javax.swing.JInternalFrame {
 
    private void bntEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntEntrarActionPerformed
 
-		String nome = txtLoginNome.getText();
-		String senha = String.valueOf(txtLoginSenha.getPassword());
-		String permissao = "Administrador";
-
-		if (nome.equals("adm") && senha.equals("123")) {
-
-			dispose();
-			home.confirmalogin(nome, permissao);
-			
-
-		} else {
-
-			JOptionPane.showMessageDialog(this, "Usuários ou Senha Incorreta!",
-					  "ATENÇÃO - Erro ao Logar", JOptionPane.ERROR_MESSAGE);
-
-		}
+		checkLogin();
 
 
    }//GEN-LAST:event_bntEntrarActionPerformed
@@ -154,4 +145,44 @@ public class ViewLogin extends javax.swing.JInternalFrame {
    private javax.swing.JTextField txtLoginNome;
    private javax.swing.JPasswordField txtLoginSenha;
    // End of variables declaration//GEN-END:variables
+
+	public void checkLogin() {
+		
+		String login = txtLoginNome.getText();
+		String senha = new String(txtLoginSenha.getPassword());
+
+		if (login.isEmpty()) {
+			
+			JOptionPane.showMessageDialog
+		  (null, "Informe seu Nome de Login!", "Login Acesso",
+					 JOptionPane.ERROR_MESSAGE);
+			
+		} else if (senha.isEmpty()) {
+			
+			JOptionPane.showMessageDialog
+		  (null, "Informe sua senha de acesso!", "Senha Acesso",
+					  JOptionPane.ERROR_MESSAGE);
+			
+		} else {
+			
+			conexao.conectar();
+			Usuario usuarioAutenticado = usuarioDAO.autenticaUsuario(login, senha);
+
+			if (usuarioAutenticado != null) {
+				
+				String permissao = usuarioAutenticado.getTipoPermissao();
+				String nome = usuarioAutenticado.getNomeUsuario();
+				dispose();
+				home.confirmalogin(nome, permissao);
+				
+			} else {
+				
+				JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!",
+						  "Erro ao Logar", JOptionPane.WARNING_MESSAGE);
+				conexao.desconectar();
+				
+			}
+		}
+
+	}
 }

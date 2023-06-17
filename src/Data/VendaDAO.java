@@ -19,7 +19,7 @@ public class VendaDAO implements GenericoDAO<Venda> {
 	}
 
 	@Override
-	public int insert(Venda obj) {
+	public boolean insert(Venda obj) {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 

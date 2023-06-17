@@ -19,8 +19,6 @@ public class Home extends javax.swing.JFrame {
 	private int screenWidth;
 	private int screenHeight;
 
-	
-	 
 	public Home() {
 
 		initComponents();
@@ -29,23 +27,24 @@ public class Home extends javax.swing.JFrame {
 		setLocationRelativeTo(null);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		pack();
-		
+
 		jmbarPrincipal.setVisible(false);
 		jblNome.setVisible(false);
 		jblPermissao.setVisible(false);
 		bntLogoff.setVisible(false);
-		
+		jlbNome.setVisible(false);
+		jlbPermissao.setVisible(false);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int screenWidth = screenSize.width;
 		int screenHeight = screenSize.height;
-		System.out.println("Tamanho atual: " + screenWidth + "x" + screenHeight);
+		//System.out.println("Tamanho atual: " + screenWidth + "x" + screenHeight);
 
 		maximizedSize = getContentPane().getSize();
 		ViewLogin login = new ViewLogin(this);
 		abrirFormulario(login, screenWidth, screenHeight);
 
-		System.out.println("Tamanho atual: " + screenWidth + "x" + screenHeight);
+		//System.out.println("Tamanho atual: " + screenWidth + "x" + screenHeight);
 
 	}
 
@@ -57,25 +56,46 @@ public class Home extends javax.swing.JFrame {
 		janela.setLocation(x, y);
 		janela.setVisible(true);
 	}
-	public void confirmalogin(String nome,String permissao){
-		
-		
-		JOptionPane.showMessageDialog
-		  (this, "Olá "+ nome +" Seja bem vindo!","Boas Vindas!", JOptionPane.INFORMATION_MESSAGE);
-		
+
+	public void confirmalogin(String nome, String permissao) {
+
+		JOptionPane.showMessageDialog(this, "Olá " + nome + " Seja bem vindo!", "Boas Vindas!",
+				  JOptionPane.INFORMATION_MESSAGE);
+
 		
 		jblNome.setText(nome);
 		jblPermissao.setText(permissao);
 		
-		jmbarPrincipal.setVisible(true);
-		jblNome.setVisible(true);
-		jblPermissao.setVisible(true);
-		bntLogoff.setVisible(true);
+		
+				jmbarPrincipal.setVisible(true);
+				jblNome.setVisible(true);
+				jblPermissao.setVisible(true);
+				bntLogoff.setVisible(true);
+				jlbNome.setVisible(true);
+				jlbPermissao.setVisible(true);
+		
+		
+		
+			if (permissao.equals("Administrador")) {
+
+				
+			
+			
+			} else if (permissao.equals("Gestor")){
+				
+				jmenuSistema.setVisible(false);
+				
+				
+			} else if (permissao.equals("Vendedor")) {
+				
+				jmenuSistema.setVisible(false);
+				jmenuCadastro.setVisible(false);
+			
+		}
 		
 		
 	}
 
-	
 	@SuppressWarnings("unchecked")
    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
    private void initComponents() {
@@ -93,9 +113,9 @@ public class Home extends javax.swing.JFrame {
       };
       bntSair = new javax.swing.JButton();
       bntLogoff = new javax.swing.JButton();
-      jLabel1 = new javax.swing.JLabel();
+      jlbNome = new javax.swing.JLabel();
       jblNome = new javax.swing.JLabel();
-      jLabel3 = new javax.swing.JLabel();
+      jlbPermissao = new javax.swing.JLabel();
       jblPermissao = new javax.swing.JLabel();
       jmbarPrincipal = new javax.swing.JMenuBar();
       jmenuSistema = new javax.swing.JMenu();
@@ -134,25 +154,25 @@ public class Home extends javax.swing.JFrame {
          }
       });
 
-      jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-      jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-      jLabel1.setText("Nome:");
+      jlbNome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+      jlbNome.setForeground(new java.awt.Color(255, 255, 255));
+      jlbNome.setText("Nome:");
 
       jblNome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
       jblNome.setForeground(new java.awt.Color(255, 255, 255));
 
-      jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-      jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-      jLabel3.setText("Permissão:");
+      jlbPermissao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+      jlbPermissao.setForeground(new java.awt.Color(255, 255, 255));
+      jlbPermissao.setText("Permissão:");
 
       jblPermissao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
       jblPermissao.setForeground(new java.awt.Color(255, 255, 255));
 
       jDesktopP.setLayer(bntSair, javax.swing.JLayeredPane.DEFAULT_LAYER);
       jDesktopP.setLayer(bntLogoff, javax.swing.JLayeredPane.DEFAULT_LAYER);
-      jDesktopP.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+      jDesktopP.setLayer(jlbNome, javax.swing.JLayeredPane.DEFAULT_LAYER);
       jDesktopP.setLayer(jblNome, javax.swing.JLayeredPane.DEFAULT_LAYER);
-      jDesktopP.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+      jDesktopP.setLayer(jlbPermissao, javax.swing.JLayeredPane.DEFAULT_LAYER);
       jDesktopP.setLayer(jblPermissao, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
       javax.swing.GroupLayout jDesktopPLayout = new javax.swing.GroupLayout(jDesktopP);
@@ -160,35 +180,37 @@ public class Home extends javax.swing.JFrame {
       jDesktopPLayout.setHorizontalGroup(
          jDesktopPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(jDesktopPLayout.createSequentialGroup()
-            .addContainerGap(526, Short.MAX_VALUE)
             .addGroup(jDesktopPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPLayout.createSequentialGroup()
-                  .addComponent(bntLogoff, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(18, 18, 18)
-                  .addComponent(bntSair, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPLayout.createSequentialGroup()
-                     .addComponent(jLabel1)
-                     .addGap(18, 18, 18)
-                     .addComponent(jblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addGap(19, 19, 19))
-                  .addGroup(jDesktopPLayout.createSequentialGroup()
-                     .addComponent(jLabel3)
-                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                     .addComponent(jblPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+               .addGroup(jDesktopPLayout.createSequentialGroup()
+                  .addComponent(jlbNome)
+                  .addGroup(jDesktopPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addGroup(jDesktopPLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(bntLogoff, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bntSair, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                     .addGroup(jDesktopPLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+               .addGroup(jDesktopPLayout.createSequentialGroup()
+                  .addComponent(jlbPermissao)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addComponent(jblPermissao, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                  .addGap(474, 474, 474)))
             .addContainerGap())
       );
       jDesktopPLayout.setVerticalGroup(
          jDesktopPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(jDesktopPLayout.createSequentialGroup()
             .addGroup(jDesktopPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+               .addComponent(jlbNome, javax.swing.GroupLayout.Alignment.TRAILING)
                .addComponent(jblNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(5, 5, 5)
             .addGroup(jDesktopPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel3)
+               .addComponent(jlbPermissao)
                .addComponent(jblPermissao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
             .addGroup(jDesktopPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(bntSair, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                .addComponent(bntLogoff, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -197,10 +219,13 @@ public class Home extends javax.swing.JFrame {
 
       jmbarPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
+      jmenuSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-configuração-48.png"))); // NOI18N
       jmenuSistema.setText("Sistema");
       jmenuSistema.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
       jmenuSistema.setIconTextGap(1);
 
+      jmiUsuario.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+      jmiUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-users.png"))); // NOI18N
       jmiUsuario.setText("Usuários");
       jmiUsuario.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,10 +236,13 @@ public class Home extends javax.swing.JFrame {
 
       jmbarPrincipal.add(jmenuSistema);
 
+      jmenuCadastro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icon cadastro.png"))); // NOI18N
       jmenuCadastro.setText("Cadastro");
       jmenuCadastro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
       jmenuCadastro.setIconTextGap(1);
 
+      jmiCategoria.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+      jmiCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-categoria-24.png"))); // NOI18N
       jmiCategoria.setText("Categoria");
       jmiCategoria.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,6 +251,8 @@ public class Home extends javax.swing.JFrame {
       });
       jmenuCadastro.add(jmiCategoria);
 
+      jmiCliente.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+      jmiCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-clientes-24.png"))); // NOI18N
       jmiCliente.setText("Cliente");
       jmiCliente.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +261,8 @@ public class Home extends javax.swing.JFrame {
       });
       jmenuCadastro.add(jmiCliente);
 
+      jmiFornecedor.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+      jmiFornecedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-fornecedor-24.png"))); // NOI18N
       jmiFornecedor.setText("Fornecedor");
       jmiFornecedor.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,6 +271,8 @@ public class Home extends javax.swing.JFrame {
       });
       jmenuCadastro.add(jmiFornecedor);
 
+      jmiProduto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+      jmiProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-add-product-24.png"))); // NOI18N
       jmiProduto.setText("Produto");
       jmiProduto.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,6 +281,8 @@ public class Home extends javax.swing.JFrame {
       });
       jmenuCadastro.add(jmiProduto);
 
+      jmiVendedor.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+      jmiVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-vendedor-24.png"))); // NOI18N
       jmiVendedor.setText("Vendedor");
       jmiVendedor.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,21 +293,25 @@ public class Home extends javax.swing.JFrame {
 
       jmbarPrincipal.add(jmenuCadastro);
 
+      jmenuEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-estoque.png"))); // NOI18N
       jmenuEstoque.setText("Estoque");
       jmenuEstoque.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
       jmenuEstoque.setIconTextGap(1);
       jmbarPrincipal.add(jmenuEstoque);
 
+      jmenuRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-relatorio.png"))); // NOI18N
       jmenuRelatorio.setText("Relatórios");
       jmenuRelatorio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
       jmenuRelatorio.setIconTextGap(1);
       jmbarPrincipal.add(jmenuRelatorio);
 
+      jmenuGerarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-vender-estoque-48.png"))); // NOI18N
       jmenuGerarVenda.setText("Gerar Venda");
       jmenuGerarVenda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
       jmenuGerarVenda.setIconTextGap(1);
       jmbarPrincipal.add(jmenuGerarVenda);
 
+      jmenuFinanceiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-financeiro.png"))); // NOI18N
       jmenuFinanceiro.setText("Financeiro");
       jmenuFinanceiro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
       jmenuFinanceiro.setIconTextGap(1);
@@ -287,7 +327,7 @@ public class Home extends javax.swing.JFrame {
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addComponent(jDesktopP)
+         .addComponent(jDesktopP, javax.swing.GroupLayout.Alignment.TRAILING)
       );
 
       pack();
@@ -301,54 +341,54 @@ public class Home extends javax.swing.JFrame {
    }//GEN-LAST:event_jmiUsuarioActionPerformed
 
    private void bntSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSairActionPerformed
-     
+
 		dispose();
-		
+
    }//GEN-LAST:event_bntSairActionPerformed
 
    private void bntLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLogoffActionPerformed
-      
+
 		dispose();
 		Home home = new Home();
 		home.setVisible(true);
-		
+
    }//GEN-LAST:event_bntLogoffActionPerformed
 
    private void jmiCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCategoriaActionPerformed
 		ViewCategoria categoria = new ViewCategoria();
-		abrirFormulario(categoria,getContentPane().getWidth(),
+		abrirFormulario(categoria, getContentPane().getWidth(),
 				  getContentPane().getHeight());
-		
-		
+
+
    }//GEN-LAST:event_jmiCategoriaActionPerformed
 
    private void jmiVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiVendedorActionPerformed
-  
+
 		ViewVendendor vendedor = new ViewVendendor();
 		abrirFormulario(vendedor, getContentPane().getWidth(), getContentPane().getHeight());
-		
-		
+
+
    }//GEN-LAST:event_jmiVendedorActionPerformed
 
    private void jmiClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClienteActionPerformed
-   
+
 		ViewCliente cliente = new ViewCliente();
-		abrirFormulario(cliente,getContentPane().getWidth(), getContentPane().getHeight());
-		
+		abrirFormulario(cliente, getContentPane().getWidth(), getContentPane().getHeight());
+
    }//GEN-LAST:event_jmiClienteActionPerformed
 
    private void jmiFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFornecedorActionPerformed
-     
+
 		ViewFornecedor fornecedor = new ViewFornecedor();
-		abrirFormulario(fornecedor,getContentPane().getWidth(), getContentPane().getHeight());
-		
+		abrirFormulario(fornecedor, getContentPane().getWidth(), getContentPane().getHeight());
+
    }//GEN-LAST:event_jmiFornecedorActionPerformed
 
    private void jmiProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiProdutoActionPerformed
-     
+
 		ViewProduto produto = new ViewProduto();
 		abrirFormulario(produto, getContentPane().getWidth(), getContentPane().getHeight());
-		
+
    }//GEN-LAST:event_jmiProdutoActionPerformed
 
 	/**
@@ -390,10 +430,10 @@ public class Home extends javax.swing.JFrame {
    private javax.swing.JButton bntLogoff;
    private javax.swing.JButton bntSair;
    private javax.swing.JDesktopPane jDesktopP;
-   private javax.swing.JLabel jLabel1;
-   private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jblNome;
    private javax.swing.JLabel jblPermissao;
+   private javax.swing.JLabel jlbNome;
+   private javax.swing.JLabel jlbPermissao;
    private javax.swing.JMenuBar jmbarPrincipal;
    private javax.swing.JMenu jmenuCadastro;
    private javax.swing.JMenu jmenuEstoque;
