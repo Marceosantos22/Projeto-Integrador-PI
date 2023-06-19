@@ -8,13 +8,13 @@ import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
- *
  * @author Marcelo Oliveira
  */
 public class ViewUsuario extends javax.swing.JInternalFrame {
@@ -241,6 +241,11 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
       jLabel4.setText("Filtro Nome:");
 
       txtPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+      txtPesquisa.addCaretListener(new javax.swing.event.CaretListener() {
+         public void caretUpdate(javax.swing.event.CaretEvent evt) {
+            txtPesquisaCaretUpdate(evt);
+         }
+      });
 
       javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
@@ -394,6 +399,18 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
 
    }//GEN-LAST:event_bntDeletar1ActionPerformed
+
+   private void txtPesquisaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisaCaretUpdate
+
+		String nome = txtPesquisa.getText();
+
+		addTable(nome);
+
+		//		List<Usuario> usuarios = buscaDados();
+		//		
+		//		preenche(usuarios);
+
+   }//GEN-LAST:event_txtPesquisaCaretUpdate
 
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -720,4 +737,5 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 		}
 
 	}
+
 }
