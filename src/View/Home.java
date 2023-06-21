@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -18,6 +19,9 @@ public class Home extends javax.swing.JFrame {
 	private Dimension maximizedSize;
 	private int screenWidth;
 	private int screenHeight;
+	
+	String iconBemVindo = "src/Image/favicon_blue_resized.png";
+	Icon iconB = new ImageIcon(iconBemVindo);
 
 	public Home() {
 
@@ -58,11 +62,13 @@ public class Home extends javax.swing.JFrame {
 	}
 
 	public void confirmalogin(String nome, String permissao) {
-
-		JOptionPane.showMessageDialog(this, "Olá " + nome + " Seja bem vindo!", "Boas Vindas!",
-				  JOptionPane.INFORMATION_MESSAGE);
-
 		
+		
+		JOptionPane.showMessageDialog
+		  (null, "Olá " + nome + " Seja bem vindo!",
+					 "Boas Vindas!", 0, iconB);
+
+				
 		jblNome.setText(nome);
 		jblPermissao.setText(permissao);
 		
@@ -450,7 +456,9 @@ public class Home extends javax.swing.JFrame {
    // End of variables declaration//GEN-END:variables
 
 	public void setIcon() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/Image/Simbolo.png")));
+		setIconImage
+		  (Toolkit.getDefaultToolkit().getImage(getClass().getResource
+		  ("/Image/Simbolo.png")));
 	}
 
 }

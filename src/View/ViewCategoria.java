@@ -1,24 +1,97 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package View;
 
+import Data.Categoria;
+import Data.CategoriaDAO;
+import Data.ConexaoBD;
+import Data.UsuarioDAO;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
- *
  * @author Marcelo Oliveira
  */
 public class ViewCategoria extends javax.swing.JInternalFrame {
+
+	private DefaultTableModel tabelaCategoria;
+	
+	
+	/**
+	 * Icons para mensagens de interação.
+	 */
+	String iconExcluir = "src/image/icons8-excluir-48.png";
+	Icon iconEx = new ImageIcon(iconExcluir);
+
+	String iconAtulizar = "src/image/icons8-atualizar-48.png";
+	Icon iconAt = new ImageIcon(iconAtulizar);
+
+	String iconSalvar = "src/image/icons8-salvar-e-fechar-48.png";
+	Icon iconSa = new ImageIcon(iconSalvar);
+
+	String iconLimpar = "src/image/icons8-vassoura-48.png";
+	Icon iconLi = new ImageIcon(iconLimpar);
+
+	String iconConfirmado = "src/image/icons8-confirmado-48.png";
+	Icon iconco = new ImageIcon(iconConfirmado);
+	
+	String iconSql = "src/image/icons8-atenção-48.png";
+	Icon iconMy = new ImageIcon(iconSql);
+	
+	String iconAtencao = "src/image/icons8-sql-48.png";
+	Icon iconAten = new ImageIcon(iconAtencao);
+	
+	
+	/**
+	 * Instancia iniciada para conexão com o Banco de Dados.
+	 */
+	ConexaoBD conexao = new ConexaoBD();
+	CategoriaDAO categoriaDAO = new CategoriaDAO(conexao);
 
 	/**
 	 * Creates new form ViewCategoria
 	 */
 	public ViewCategoria() {
+
 		initComponents();
 		setTitle("Cadastro de Categoria");
+		this.addTable("");
 
+		jTableCategoria.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+			public void valueChanged(ListSelectionEvent event) {
+				if (!event.getValueIsAdjusting()) {
+					selecaoTable();
+				}
+			}
+		});
+
+	}
+	
+	/**
+	 * Método de seleção na tabela.
+	 */
+	public void selecaoTable() {
+
+		int selecteRow = jTableCategoria.getSelectedRow();
+
+		if (selecteRow != -1) {
+
+			int id = Integer.parseInt(jTableCategoria.getValueAt(selecteRow, 0).toString());
+			String nome = jTableCategoria.getValueAt(selecteRow, 1).toString();
+			Object descricaoObj = jTableCategoria.getValueAt(selecteRow, 2);
+			String descricao = descricaoObj != null ? descricaoObj.toString() : "";
+
+			txtNomeCategoria.setText(nome);
+			txtaDescricaoCategoria.setText(descricao);
+		}
 	}
 
 	/**
@@ -32,11 +105,12 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
       jLabel1 = new javax.swing.JLabel();
       jLabel6 = new javax.swing.JLabel();
       txtNomeCategoria = new javax.swing.JTextField();
-      bntSalvar = new javax.swing.JButton();
-      bntAlterar = new javax.swing.JButton();
-      bntDeletar = new javax.swing.JButton();
       jScrollPane1 = new javax.swing.JScrollPane();
       txtaDescricaoCategoria = new javax.swing.JTextArea();
+      bntSalvar = new javax.swing.JButton();
+      bntAlterar = new javax.swing.JButton();
+      bntDeletar1 = new javax.swing.JButton();
+      bntLimpar = new javax.swing.JButton();
       jScrollPane2 = new javax.swing.JScrollPane();
       jTableCategoria = new javax.swing.JTable();
       jPanel2 = new javax.swing.JPanel();
@@ -56,8 +130,13 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
 
       txtNomeCategoria.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+      txtaDescricaoCategoria.setColumns(20);
+      txtaDescricaoCategoria.setRows(5);
+      jScrollPane1.setViewportView(txtaDescricaoCategoria);
+
       bntSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
       bntSalvar.setForeground(java.awt.Color.green);
+      bntSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-salvar-24 (1).png"))); // NOI18N
       bntSalvar.setText("SALVAR");
       bntSalvar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.green, java.awt.Color.green, java.awt.Color.green, java.awt.Color.green));
       bntSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -69,6 +148,7 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
 
       bntAlterar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
       bntAlterar.setForeground(new java.awt.Color(0, 51, 204));
+      bntAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-editar-arquivo-24.png"))); // NOI18N
       bntAlterar.setText("ALTERAR");
       bntAlterar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.blue, java.awt.Color.blue, java.awt.Color.blue, java.awt.Color.blue));
       bntAlterar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -78,20 +158,28 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
          }
       });
 
-      bntDeletar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-      bntDeletar.setForeground(java.awt.Color.red);
-      bntDeletar.setText("DELETAR");
-      bntDeletar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.red, java.awt.Color.red, java.awt.Color.red, java.awt.Color.red));
-      bntDeletar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-      bntDeletar.addActionListener(new java.awt.event.ActionListener() {
+      bntDeletar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+      bntDeletar1.setForeground(java.awt.Color.red);
+      bntDeletar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-excluir-24.png"))); // NOI18N
+      bntDeletar1.setText("DELETAR");
+      bntDeletar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.red, java.awt.Color.red, java.awt.Color.red, java.awt.Color.red));
+      bntDeletar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+      bntDeletar1.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
-            bntDeletarActionPerformed(evt);
+            bntDeletar1ActionPerformed(evt);
          }
       });
 
-      txtaDescricaoCategoria.setColumns(20);
-      txtaDescricaoCategoria.setRows(5);
-      jScrollPane1.setViewportView(txtaDescricaoCategoria);
+      bntLimpar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+      bntLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/icons8-vassoura-24.png"))); // NOI18N
+      bntLimpar.setText("LIMPAR");
+      bntLimpar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, new java.awt.Color(255, 255, 51), new java.awt.Color(255, 255, 51), new java.awt.Color(255, 255, 51), new java.awt.Color(255, 255, 51)));
+      bntLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+      bntLimpar.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            bntLimparActionPerformed(evt);
+         }
+      });
 
       javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
       jPanel1.setLayout(jPanel1Layout);
@@ -108,12 +196,14 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(0, 61, Short.MAX_VALUE))
          .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGap(60, 60, 60)
+            .addGap(28, 28, 28)
             .addComponent(bntSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(30, 30, 30)
+            .addGap(27, 27, 27)
             .addComponent(bntAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(34, 34, 34)
-            .addComponent(bntDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(29, 29, 29)
+            .addComponent(bntDeletar1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
+            .addComponent(bntLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
       jPanel1Layout.setVerticalGroup(
@@ -132,9 +222,10 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
                   .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addGap(18, 18, Short.MAX_VALUE)))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(bntDeletar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(bntSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                .addComponent(bntAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(bntSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(bntDeletar1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(bntLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addContainerGap())
       );
 
@@ -157,6 +248,14 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
          }
       });
       jScrollPane2.setViewportView(jTableCategoria);
+      if (jTableCategoria.getColumnModel().getColumnCount() > 0) {
+         jTableCategoria.getColumnModel().getColumn(0).setMinWidth(50);
+         jTableCategoria.getColumnModel().getColumn(0).setPreferredWidth(50);
+         jTableCategoria.getColumnModel().getColumn(0).setMaxWidth(50);
+         jTableCategoria.getColumnModel().getColumn(1).setMinWidth(180);
+         jTableCategoria.getColumnModel().getColumn(1).setPreferredWidth(180);
+         jTableCategoria.getColumnModel().getColumn(1).setMaxWidth(180);
+      }
 
       jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Consulta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
 
@@ -217,43 +316,115 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
 
    private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
 
-		JOptionPane.showMessageDialog(this, "Categoria CADASTRADA com sucesso", "Cadastro",
-				  JOptionPane.INFORMATION_MESSAGE);
+		if (!empty()) {
 
+			if (emptyValida()) {
 
+				int resposta = JOptionPane.showOptionDialog(null,
+						  "Deseja Atualizar a Categoria?",
+						  "Atenção",
+						  JOptionPane.YES_NO_OPTION,
+						  JOptionPane.QUESTION_MESSAGE,
+						  iconSa,
+						  new String[]{"SIM", "NÃO"}, "Não");
+
+				if (resposta == 0) {
+
+					salvar();
+					limparDados();
+
+				}
+			}
+		}
+		
    }//GEN-LAST:event_bntSalvarActionPerformed
 
    private void bntAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAlterarActionPerformed
 
-		JOptionPane.showMessageDialog(this, "Categoria ATUALIZADA com sucesso", "Atualização",
-				  JOptionPane.INFORMATION_MESSAGE);
-
-   }//GEN-LAST:event_bntAlterarActionPerformed
-
-   private void bntDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDeletarActionPerformed
-
-		int resposta = JOptionPane.showOptionDialog(
-				  this,
-				  "Deseja excluir esta Categoria?",
-				  "Exclusão",
+		int resposta = JOptionPane.showOptionDialog(null,
+				  "Deseja Atualizar a Categoria?",
+				  "Atenção",
 				  JOptionPane.YES_NO_OPTION,
 				  JOptionPane.QUESTION_MESSAGE,
-				  null,
+				  iconAt,
 				  new String[]{"SIM", "NÃO"}, "Não");
 
 		if (resposta == 0) {
 
-			JOptionPane.showMessageDialog(null, "Categoria EXCLUÍDA com sucesso",
-					  "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			if (empty()) {
+
+				JOptionPane.showMessageDialog(null, "Preencha todos os campos!",
+						  "Correção", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			if (!emptyValida()) {
+				return;
+
+			}
+
+			updateCategoria();
 
 		}
 
-   }//GEN-LAST:event_bntDeletarActionPerformed
+   }//GEN-LAST:event_bntAlterarActionPerformed
+
+   private void bntDeletar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDeletar1ActionPerformed
+
+		int selectedRow = jTableCategoria.getSelectedRow();
+
+		int resposta = JOptionPane.showOptionDialog(null,
+				  "Deseja excluir está Categoria?",
+				  "Atenção",
+				  JOptionPane.YES_NO_OPTION,
+				  JOptionPane.QUESTION_MESSAGE,
+				  iconEx,
+				  new String[]{"SIM", "NÃO"}, "Não");
+
+		if (resposta == 0) {
+
+			if (selectedRow != -1) {
+
+				int id = Integer.parseInt(jTableCategoria.getValueAt(selectedRow, 0).toString());
+				deletaLinha(id);
+			}
+
+			tabelaCategoria.setNumRows(0);
+			limparDados();
+			txtNomeCategoria.requestFocus();
+			this.addTable("");
+
+		}
+
+
+   }//GEN-LAST:event_bntDeletar1ActionPerformed
+
+   private void bntLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLimparActionPerformed
+
+		int resposta = JOptionPane.showOptionDialog(null,
+				  "Deseja excluir está Categoria?",
+				  "Atenção",
+				  JOptionPane.YES_NO_OPTION,
+				  JOptionPane.QUESTION_MESSAGE,
+				  iconLi,
+				  new String[]{"SIM", "NÃO"}, "Não");
+
+		if (resposta == 0) {
+
+			limparDados();
+
+			JOptionPane.showMessageDialog(null, "Campos resetado",
+					  "Confirmação", 0, iconco);
+
+		}
+
+   }//GEN-LAST:event_bntLimparActionPerformed
 
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton bntAlterar;
-   private javax.swing.JButton bntDeletar;
+   private javax.swing.JButton bntDeletar1;
+   private javax.swing.JButton bntLimpar;
    private javax.swing.JButton bntSalvar;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel4;
@@ -267,4 +438,218 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
    private javax.swing.JTextField txtPesquisa;
    private javax.swing.JTextArea txtaDescricaoCategoria;
    // End of variables declaration//GEN-END:variables
+	
+	
+	/**
+	 * Método de tratamendo de Input de Dados.
+	 * @return True ou False
+	 */
+	public boolean empty() {
+
+		boolean empty = true;
+
+		if (txtNomeCategoria.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Necessário preencher o nome da Categoria!",
+					  "Correção", JOptionPane.ERROR_MESSAGE);
+
+			return empty;
+		}
+
+		empty = false;
+		return empty;
+
+	}
+
+	/**
+	 * Método de validação do input de dados.
+	 * @return True ou False
+	 */
+	public boolean emptyValida() {
+
+		String nome = txtNomeCategoria.getText();
+		boolean nomeValido = nome.matches(".*");
+
+		if (!nomeValido) {
+
+			JOptionPane.showMessageDialog(null, "Preencha o campo Nome!",
+					  "Correção", JOptionPane.ERROR_MESSAGE);
+			return false;
+
+		}
+
+		return true;
+	}
+
+	/**
+	 * Método para limpar os campos digitados pelo usuário.
+	 */
+	public void limparDados() {
+
+		txtNomeCategoria.setText("");
+		txtaDescricaoCategoria.setText("");
+
+		txtNomeCategoria.requestFocus();
+
+	}
+
+	/**
+	 * Método para salvar dados no banco de dados, executa o método insert() na CategoriaDAO.
+	 */
+	public void salvar() {
+
+		int resposta;
+
+		conexao.conectar();
+
+		Categoria categoria = new Categoria();
+
+		categoria.setNomeCategoria(txtNomeCategoria.getText());
+		categoria.setDescricao(txtaDescricaoCategoria.getText());
+
+		boolean status = categoriaDAO.insert(categoria);
+
+		if (status == false) {
+
+			JOptionPane.showMessageDialog(null, "Erro ao conectar com o Banco de Dados",
+					  "Erro Banco de Dados", 0,iconMy);
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "Categoria salvo com sucesso!", "Confirmação", 0, iconco);
+
+			limparDados();
+			txtNomeCategoria.requestFocus();
+
+			//this.addTable("");
+		}
+
+	}
+
+	/**
+	 * Método para adicionar dados na tabela.
+	 * @param nome 
+	 */
+	public void addTable(String nome) {
+
+		boolean status = conexao.conectar();
+
+		if (status == false) {
+
+			JOptionPane.showMessageDialog(null, "Não foi possível Adicionar, Erro de conexão",
+					  "Banco de Dados", 0,iconMy);
+
+		} else {
+
+			List<Categoria> listCategoria = categoriaDAO.listaTableCategoria(nome);
+
+			tabelaCategoria = (DefaultTableModel) jTableCategoria.getModel();
+
+			jTableCategoria.setRowSorter(new TableRowSorter(tabelaCategoria));
+			tabelaCategoria.setNumRows(0);
+
+			for (Categoria cat : listCategoria) {
+
+				Object[] obj = new Object[]{cat.getIdCategoria(), cat.getNomeCategoria(), cat.getDescricao()};
+
+				tabelaCategoria.addRow(obj);
+
+			}
+
+			conexao.desconectar();
+
+		}
+
+	}
+
+	/**
+	 * Método para atualizar os dados já cadastrados no banco de dados.
+	 */
+	public void updateCategoria() {
+
+		int resposta;
+
+		Categoria categoria = new Categoria();
+
+		int selectedRow = jTableCategoria.getSelectedRow();
+
+		if (selectedRow != -1) {
+
+			int id = Integer.parseInt(jTableCategoria.getValueAt(selectedRow, 0).toString());
+
+			categoria.setIdCategoria(id);
+			categoria.setNomeCategoria(txtNomeCategoria.getText());
+			categoria.setDescricao(txtaDescricaoCategoria.getText());
+
+			boolean status = conexao.conectar();
+
+			if (status == false) {
+
+				JOptionPane.showMessageDialog(null, "Erro ao conectar com o Banco de Dados",
+						  "Banco de Dados", 0, iconMy);
+
+			} else {
+
+				resposta = categoriaDAO.update(categoria);
+
+				if (resposta == 1) {
+
+					JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso!",
+							  "Confirmação", 0, iconco);
+
+					limparDados();
+					this.addTable("");
+					txtNomeCategoria.requestFocus();
+
+				} else {
+
+					JOptionPane.showMessageDialog(null, "Erro ao atualizar Categoria!",
+							  "Banco de Dados", 0, iconMy);
+
+				}
+
+			}
+
+			conexao.desconectar();
+
+		}
+
+	}
+
+	/**
+	 * Método para deleta os dados cadastratos no banco de dados.
+	 * @param id 
+	 */
+	public void deletaLinha(int id) {
+
+		boolean status = conexao.conectar();
+
+		if (status == false) {
+
+			JOptionPane.showMessageDialog
+		  (null, "Erro de Conexão!", "Banco de Dados", 0, iconMy);
+
+		} else {
+
+			status = categoriaDAO.delete(id);
+
+			if (status == true) {
+
+				JOptionPane.showMessageDialog(null, "Categoria excluída com sucesso!", "Confirmação",
+						  0, iconEx);
+
+				this.addTable("");
+
+			} else {
+
+				JOptionPane.showMessageDialog(null, "Erro ao excluir", "ERRO",
+						  0, iconMy);
+
+			}
+
+			conexao.desconectar();
+
+		}
+
+	}
+
 }
