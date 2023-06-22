@@ -42,10 +42,10 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
 	String iconConfirmado = "src/image/icons8-confirmado-48.png";
 	Icon iconco = new ImageIcon(iconConfirmado);
 	
-	String iconSql = "src/image/icons8-atenção-48.png";
+	String iconSql = "src/image/icons8-sql-48.png";
 	Icon iconMy = new ImageIcon(iconSql);
 	
-	String iconAtencao = "src/image/icons8-sql-48.png";
+	String iconAtencao = "src/image/icons8-atenção-48.png";
 	Icon iconAten = new ImageIcon(iconAtencao);
 	
 	
@@ -263,6 +263,11 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
       jLabel4.setText("Filtro Nome:");
 
       txtPesquisa.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+      txtPesquisa.addCaretListener(new javax.swing.event.CaretListener() {
+         public void caretUpdate(javax.swing.event.CaretEvent evt) {
+            txtPesquisaCaretUpdate(evt);
+         }
+      });
 
       javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
@@ -321,7 +326,7 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
 			if (emptyValida()) {
 
 				int resposta = JOptionPane.showOptionDialog(null,
-						  "Deseja Atualizar a Categoria?",
+						  "Deseja Salvar está Categoria?",
 						  "Atenção",
 						  JOptionPane.YES_NO_OPTION,
 						  JOptionPane.QUESTION_MESSAGE,
@@ -402,7 +407,7 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
    private void bntLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLimparActionPerformed
 
 		int resposta = JOptionPane.showOptionDialog(null,
-				  "Deseja excluir está Categoria?",
+				  "Deseja Limpar os campos digitados?",
 				  "Atenção",
 				  JOptionPane.YES_NO_OPTION,
 				  JOptionPane.QUESTION_MESSAGE,
@@ -419,6 +424,16 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
 		}
 
    }//GEN-LAST:event_bntLimparActionPerformed
+
+   private void txtPesquisaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtPesquisaCaretUpdate
+      
+		String nome = txtPesquisa.getText();
+
+		addTable(nome);
+		
+		
+		
+   }//GEN-LAST:event_txtPesquisaCaretUpdate
 
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -450,7 +465,7 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
 
 		if (txtNomeCategoria.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Necessário preencher o nome da Categoria!",
-					  "Correção", JOptionPane.ERROR_MESSAGE);
+					  "Correção", 0, iconAten);
 
 			return empty;
 		}
@@ -472,7 +487,7 @@ public class ViewCategoria extends javax.swing.JInternalFrame {
 		if (!nomeValido) {
 
 			JOptionPane.showMessageDialog(null, "Preencha o campo Nome!",
-					  "Correção", JOptionPane.ERROR_MESSAGE);
+					  "Correção", 0, iconAten);
 			return false;
 
 		}

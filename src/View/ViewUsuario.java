@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -21,6 +23,33 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
 	private DefaultTableModel tabelaUsuario;
 
+	/**
+	 * Icons para mensagens de interação.
+	 */
+	String iconExcluir = "src/image/icons8-excluir-48.png";
+	Icon iconEx = new ImageIcon(iconExcluir);
+
+	String iconAtulizar = "src/image/icons8-atualizar-48.png";
+	Icon iconAt = new ImageIcon(iconAtulizar);
+
+	String iconSalvar = "src/image/icons8-salvar-e-fechar-48.png";
+	Icon iconSa = new ImageIcon(iconSalvar);
+
+	String iconLimpar = "src/image/icons8-vassoura-48.png";
+	Icon iconLi = new ImageIcon(iconLimpar);
+
+	String iconConfirmado = "src/image/icons8-confirmado-48.png";
+	Icon iconco = new ImageIcon(iconConfirmado);
+
+	String iconSql = "src/image/icons8-sql-48.png";
+	Icon iconMy = new ImageIcon(iconSql);
+
+	String iconAtencao = "src/image/icons8-atenção-48.png";
+	Icon iconAten = new ImageIcon(iconAtencao);
+
+	/**
+	 * Instancia iniciada para conexão com o Banco de Dados.
+	 */
 	ConexaoBD conexao = new ConexaoBD();
 	UsuarioDAO userDAO = new UsuarioDAO(conexao);
 
@@ -345,11 +374,21 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
 			if (emptyValida()) {
 
-				salvar();
-				limparDados();
+				int resposta = JOptionPane.showOptionDialog(null,
+						  "Deseja Salvar este  Usuário?",
+						  "Confirmação",
+						  JOptionPane.YES_NO_OPTION,
+						  JOptionPane.QUESTION_MESSAGE,
+						  iconSa,
+						  new String[]{"SIM", "NÃO"}, "Não");
 
+				if (resposta == 0) {
+
+					salvar();
+					limparDados();
+
+				}
 			}
-
 		}
 
    }//GEN-LAST:event_bntSalvarActionPerformed
@@ -361,42 +400,77 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 			JOptionPane.showMessageDialog(null, "Preencha todos os campos!",
 					  "Correção", JOptionPane.ERROR_MESSAGE);
 			return;
+
 		}
 
 		if (!emptyValida()) {
+
 			return;
 
 		}
 
-		updateUsuario();
+		int resposta = JOptionPane.showOptionDialog(null,
+				  "Deseja Atualizar este Usuário?",
+				  "Atenção",
+				  JOptionPane.YES_NO_OPTION,
+				  JOptionPane.QUESTION_MESSAGE,
+				  iconAt,
+				  new String[]{"SIM", "NÃO"}, "Não");
 
+		if (resposta == 0) {
+
+			updateUsuario();
+
+		}
 
    }//GEN-LAST:event_bntAlterarActionPerformed
 
    private void bntLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntLimparActionPerformed
 
-		limparDados();
+		int resposta = JOptionPane.showOptionDialog(null,
+				  "Deseja Limpar os campos digitados?",
+				  "Atenção",
+				  JOptionPane.YES_NO_OPTION,
+				  JOptionPane.QUESTION_MESSAGE,
+				  iconLi,
+				  new String[]{"SIM", "NÃO"}, "Não");
 
-		JOptionPane.showMessageDialog(null, "Campos resetado",
-				  "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+		if (resposta == 0) {
 
+			limparDados();
 
+			JOptionPane.showMessageDialog(null, "Campos resetado",
+					  "Confirmação", 0, iconco);
+
+		}
    }//GEN-LAST:event_bntLimparActionPerformed
 
    private void bntDeletar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDeletar1ActionPerformed
 
 		int selectedRow = jtableUsuario.getSelectedRow();
 
-		if (selectedRow != -1) {
+		int resposta = JOptionPane.showOptionDialog(null,
+				  "Deseja excluir está Categoria?",
+				  "Atenção",
+				  JOptionPane.YES_NO_OPTION,
+				  JOptionPane.QUESTION_MESSAGE,
+				  iconEx,
+				  new String[]{"SIM", "NÃO"}, "Não");
 
-			int id = Integer.parseInt(jtableUsuario.getValueAt(selectedRow, 0).toString());
-			deletaLinha(id);
+		if (resposta == 0) {
+
+			if (selectedRow != -1) {
+
+				int id = Integer.parseInt(jtableUsuario.getValueAt(selectedRow, 0).toString());
+				deletaLinha(id);
+			}
+			
+			tabelaUsuario.setNumRows(0);
+			limparDados();
+			txtNomeUser.requestFocus();
+			this.addTable("");
+			
 		}
-		tabelaUsuario.setNumRows(0);
-		limparDados();
-		txtNomeUser.requestFocus();
-		this.addTable("");
-
 
    }//GEN-LAST:event_bntDeletar1ActionPerformed
 
@@ -405,10 +479,6 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 		String nome = txtPesquisa.getText();
 
 		addTable(nome);
-
-		//		List<Usuario> usuarios = buscaDados();
-		//		
-		//		preenche(usuarios);
 
    }//GEN-LAST:event_txtPesquisaCaretUpdate
 
@@ -437,20 +507,24 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
    private javax.swing.JPasswordField txtpSenhaUser;
    // End of variables declaration//GEN-END:variables
 
+	/**
+	 * Método de tratamendo de Input de Dados.
+	 * @return True ou False
+	 */
 	public boolean empty() {
 
 		boolean empty = true;
 
 		if (txtNomeUser.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Necessário preencher o nome!",
-					  "Correção", JOptionPane.ERROR_MESSAGE);
+					  "Correção", 0, iconAten);
 
 			return empty;
 		}
 
 		if (txtLogin.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Preencha o campo Login",
-					  "Correção", JOptionPane.ERROR_MESSAGE);
+					  "Correção", 0, iconAten);
 			return empty;
 		}
 
@@ -458,14 +532,19 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
 		if (password.length == 0) {
 			JOptionPane.showMessageDialog(null, "Preencha o campo Senha",
-					  "Correção", JOptionPane.ERROR_MESSAGE);
+					  "Correção", 0, iconAten);
 			return empty;
 		}
 
 		empty = false;
 		return empty;
 	}
-
+	
+	
+	/**
+	 * Método de validação do input de dados.
+	 * @return True ou False
+	 */
 	public boolean emptyValida() {
 
 		String nome = txtNomeUser.getText();
@@ -483,32 +562,36 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 		if (!nomeValido) {
 
 			JOptionPane.showMessageDialog(null, "Preencha o campo Nome!",
-					  "Correção", JOptionPane.ERROR_MESSAGE);
+					  "Correção", 0, iconAten);
 			return false;
 
 		} else if (!loginValido) {
 
 			JOptionPane.showMessageDialog(null, "Preencha o campo Login!",
-					  "Correção", JOptionPane.ERROR_MESSAGE);
+					  "Correção", 0, iconAten);
 			return false;
 
 		} else if (!datavalida) {
 
 			JOptionPane.showMessageDialog(null, "Informe a Data de Nascimento!",
-					  "Correção", JOptionPane.ERROR_MESSAGE);
+					  "Correção", 0, iconAten);
 			return false;
 
 		} else if (!permissaoValida) {
 
 			JOptionPane.showMessageDialog(null, "Selecione uma Permissão!",
-					  "Correção", JOptionPane.ERROR_MESSAGE);
+					  "Correção", 0, iconAten);
 			return false;
 
 		}
 
 		return true;
 	}
-
+	
+	
+	/**
+	 * Método para salvar dados no banco de dados, executa o método insert() na CategoriaDAO.
+	 */
 	public void salvar() {
 
 		int resposta;
@@ -546,17 +629,23 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 		if (status == false) {
 
 			JOptionPane.showMessageDialog(null, "Erro ao conectar com o Banco de Dados",
-					  "Erro BD", JOptionPane.ERROR_MESSAGE);
+					  "Erro Banco de Dados", 0,iconMy);
 
 		} else {
 
-			JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso!");
+			JOptionPane.showMessageDialog
+		  (null, "Usuário salvo com sucesso!", "Confirmação", 0, iconco);
+			
 			limparDados();
 			txtNomeUser.requestFocus();
 			this.addTable("");
 		}
 	}
 
+	
+	/**
+	 * Método para limpar os campos digitados pelo usuário.
+	 */
 	public void limparDados() {
 
 		txtNomeUser.setText("");
@@ -568,6 +657,11 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
 	}
 
+	
+	/**
+	 * Método para adicionar dados na tabela.
+	 * @param nome 
+	 */
 	private void addTable(String Nome) {
 
 		boolean status = conexao.conectar();
@@ -575,7 +669,7 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 		if (status == false) {
 
 			JOptionPane.showMessageDialog(null, "Não foi possível Adicionar, Erro de conexão",
-					  "Banco de Dados", JOptionPane.ERROR_MESSAGE);
+					  "Banco de Dados", 0,iconMy);
 
 		} else {
 
@@ -602,6 +696,10 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
 	}
 
+	
+	/**
+	 * Método de seleção na tabela.
+	 */
 	public void selecaoTable() {
 
 		int selecteRow = jtableUsuario.getSelectedRow();
@@ -636,13 +734,19 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
 	}
 
+	
+	/**
+	 * Método para deleta os dados cadastratos no banco de dados.
+	 * @param id 
+	 */
 	public void deletaLinha(int id) {
 
 		boolean status = conexao.conectar();
 
 		if (status == false) {
 
-			JOptionPane.showMessageDialog(null, "Erro de Conexão!", "Banco de Dados", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog
+		  (null, "Erro de Conexão!", "Banco de Dados", 0, iconMy);
 
 		} else {
 
@@ -651,14 +755,14 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 			if (status == true) {
 
 				JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!", "Confirmação",
-						  JOptionPane.INFORMATION_MESSAGE);
+						  0, iconEx);
 
 				this.addTable("");
 
 			} else {
 
 				JOptionPane.showMessageDialog(null, "Erro ao excluir", "ERRO",
-						  JOptionPane.ERROR_MESSAGE);
+						  0, iconMy);
 
 			}
 
@@ -668,6 +772,10 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 
 	}
 
+	
+	/**
+	 * Método para atualizar os dados já cadastrados no banco de dados.
+	 */
 	public void updateUsuario() {
 
 		String tipoPermissao = (String) jcbTipoPermissao.getSelectedItem();
@@ -711,7 +819,7 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 			if (status == false) {
 
 				JOptionPane.showMessageDialog(null, "Erro ao conectar com o Banco de Dados",
-						  "Erro BD", JOptionPane.ERROR_MESSAGE);
+						  "Banco de Dados", 0, iconMy);
 
 			} else {
 
@@ -720,15 +828,15 @@ public class ViewUsuario extends javax.swing.JInternalFrame {
 				if (resposta == 1) {
 
 					JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso!",
-							  "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+							  "Confirmação", 0, iconco);
 					limparDados();
 					this.addTable("");
 					txtNomeUser.requestFocus();
 
 				} else {
 
-					JOptionPane.showMessageDialog(null, "Erro ao atualizar dados!",
-							  "Erro", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Erro ao atualizar Usuário!",
+							  "Banco de Dados", 0, iconMy);
 				}
 			}
 
